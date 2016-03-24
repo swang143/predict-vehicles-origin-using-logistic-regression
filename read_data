@@ -1,0 +1,20 @@
+# predict-vehicles-origin-using-logistic-regression
+
+import pandas
+import numpy as np
+
+# Filename
+auto_file = "auto.txt"
+
+# Column names, not included in file
+names = ['mpg', 'cylinders', 'displacement', 'horsepower', 'weight', 'acceleration', 'year', 'origin', 'car_name']
+
+auto = pandas.read_table(auto_file, delim_whitespace=True, names=names)
+
+# Show the first five rows of the dataset
+print(auto.head())
+
+# The .unique() function provided for pandas dataframes returns an array of the unique elements in a column. Use this function to assign the unique elements in the column origin to unique_regions.
+unique_regions = auto["origin"].unique()
+
+
