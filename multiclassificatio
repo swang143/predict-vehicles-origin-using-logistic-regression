@@ -1,0 +1,17 @@
+# predict-vehicles-origin-using-logistic-regression
+from sklearn.linear_model import LogisticRegression
+
+unique_origins = modified_auto['origin'].unique()
+unique_origins.sort()
+
+models = {}
+testing_probs = pandas.DataFrame(columns=unique_origins)
+for origin in unique_origins:
+    models[origin] = LogisticRegression()
+    X_train = train[features]
+    y_train = train['origin'] == origin
+    
+    models[origin].fit(X_train, y_train)
+    X_test = test[features]
+    testing_probs[origin] = models[origin].predict_proba(X_test)[:,1]
+
