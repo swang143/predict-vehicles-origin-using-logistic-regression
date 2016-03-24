@@ -1,0 +1,53 @@
+# predict-vehicles-origin-using-logistic-regression
+
+# The dataset auto has both an unneeded column and missing values. The column car_name does not provide any information that can help us with our analysis so we want to delete that one. Also, the column horsepower has a few missing values, marked with a '?', so we will omit those vehicles.
+
+# Delete the column car_name
+del auto["car_name"]
+
+# Remove rows with missing values
+auto = auto[auto["horsepower"] != "?"]
+
+# Working with categorical columns
+
+# Until now all the variables we have worked with have been continuous. Categorical variables are another type of variable which take on values that are names or labels. 
+
+# In our case, categorical variables exist in three columns, cylinders, year, and origin. Columns cylinders and year must be modified accordingly to predict label origin. For example, there are 5 different categories of cylinders, 3, 4, 5, 6, 8. This single categorical column can also be represented by 4 binary columns.
+
+cylinders_3 -- Does the car have 3 cylinders? either a 0 or a 1
+cylinders_4 -- Does the car have 4 cylinders? either a 0 or a 1
+cylinders_5 -- Does the car have 5 cylinders? either a 0 or a 1
+cylinders_6 -- Does the car have 6 cylinders? either a 0 or a 1
+
+def create dummy(var):
+    var_unique = var.unique()
+    var_unique.sort()
+    
+    dummy = pandas.DataFrame()
+    
+    for val in var_unique[:-1]:
+        d = var == val
+        dummy[var.name + "_" + str(val)] = d.astype(int)
+        
+    return dummy
+    
+modified_auto = auto.copy()
+
+# Working with cylinder column
+cylinder_dummies = create_dummies(modified_auto["cylinders"])
+
+# merge dummy varibles to our dataframe
+modified_auto = pandas.concat([modified_auto, cylinder_dummies], axis=1)
+
+# delete cylinders column as we have now explained it with dummy variables
+del modified_auto["cylinders"]
+
+# Workig with year column
+year_dummies = create_dummies(modified_auto["year"])
+modified_auto = pandas.concat([modified_auto, year_dummies], axis=1)
+del modified_auto["year"]
+
+print(modified_auto.head())
+
+
+    
