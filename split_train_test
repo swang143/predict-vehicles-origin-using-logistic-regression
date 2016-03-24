@@ -1,0 +1,14 @@
+# predict-vehicles-origin-using-logistic-regression
+
+# Use one-versus-all technique to apply binary classification algorithms to multiclass cases.
+# First spilit dataset into train and test.
+import numpy
+
+# get all columns which will be used as features, remove 'origin'
+features = numpy.delete(modified_auto.columns, modified_auto.columns=='origin')
+
+# shuffle data, select 70% of the dataset to be training data, 30% of the dataset to be test data
+shuffled_rows = numpy.random.permutation(modified_auto.index)
+highest_train_row = int(shuffled_rows.shape[0] * 0.7)
+train = modified_auto.loc[shuffled_rows[:highest_train_row]]
+test = modified_auto.loc[shuffled_rows[highest_train_row:]]
