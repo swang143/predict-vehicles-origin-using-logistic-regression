@@ -1,0 +1,20 @@
+# predict-vehicles-origin-using-logistic-regression
+
+# For the multiclass case, an F score is computed per class then averaged over each
+# F-score is a weighted measure of precision and recall defined as: 
+Fi = 2 * precison(i) * recall(i)/(precision(i) + recall(i)) for class i.
+
+# For the multiclass, F score is computed per class and then average over each other. This measure is used to find a balance between precision and recall while allowing for comparision against other models.
+
+scores = []
+for i in confusion.index:
+    tps = confusion.ix[i,i]
+    positives = confusion.ix[i, :].sum()
+    observations = confusion.ix[:, i].sum()
+    precision = tps / positives
+    recall = tps / observations
+    fi = 2 * precision * recall / (precision + recall)
+    scores.append(fi)
+    
+fscore = numpy.mean(scores)
+
