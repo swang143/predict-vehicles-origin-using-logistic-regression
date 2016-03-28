@@ -1,0 +1,16 @@
+# predict-vehicles-origin-using-logistic-regression
+# compute measures like precision and recall to understand the efficiency of this model.
+# To do this, we must start by creating a confusion matrix which aggregates our predictions into a matrix. Each column and row in the matrix will represent observations and predictions for the 3 origins.
+
+predicted_orgins = predicted_origins.values
+origins_observed = test['origin'].values
+
+# initiate the confusion matrix
+confusion = pandas.DataFrame(np.zeros(shape=(unique_origins.shape[0], unique_origins.shape[0])), index=unique_origins,           columns=unique_origins)
+
+for pred in unique_orgins:
+    for obs in unique_origins:
+        t_pred = predicted_origins == pred
+        t_obs = origins_observed == obs
+        t = t_pred & t_obs
+        confusion.loc[pred, obs] = sum(t)
