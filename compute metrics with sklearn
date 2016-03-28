@@ -1,0 +1,11 @@
+# predict-vehicles-origin-using-logistic-regression
+
+from sklearn.metrics import precision_score, recall_score, f1_score
+
+# Compute precision score with micro averaging
+
+pr_micro = precision_score(test["origin"], predicted_origins, average='micro')
+pr_weighted = precision_score(test["origin"], predicted_origins, average='weighted')
+rc_weighted = recall_score(test["origin"], predicted_origins, average='weighted')
+f1_weighted = f1_score(test["origin"], predicted_origins, average='weighted')
+
