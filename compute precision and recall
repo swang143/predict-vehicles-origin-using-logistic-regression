@@ -1,0 +1,23 @@
+# predict-vehicles-origin-using-logistic-regression
+
+# Precision measures the number of correctly predicting origins relatively to the total number of positive predictions.
+# Recall measures the ability to predict the correct class relative to the total number of observations within that class
+
+ps = 0
+for i in confusion.index:
+    tps = confusion.ix[i, i]
+    positives = confusion.ix[i,:].sum()
+    ps += tps / positives
+
+precision = ps / unique_origins.shape[0]
+
+rcs = 0
+for i in confusion.index:
+    tps = confusion.ix[i, i]
+    observations = confusion.ix[:, i].sum()
+    rcs += tps / observations
+
+recall = rcs / unique_origins.shape[0]
+
+print('precision={0}'.format(precision))
+print('recall={0}'.format(recall))
