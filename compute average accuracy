@@ -1,2 +1,12 @@
 # predict-vehicles-origin-using-logistic-regression
 
+sumacc = 0 
+for i in confusion.index:
+    tp = confusion.loc[i,i]
+    tn = confusion.loc[unique_origins[unique_origins!=i], unique_origins[unique_origins!=i]]
+    sumacc += tp + tn.sum().sum()
+    
+l = unique_origins.shape[0]
+n = test.shape[0]
+denominator = l * n 
+avgacc = sumacc / demonimator
